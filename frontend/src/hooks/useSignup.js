@@ -1,57 +1,75 @@
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useAuthContext } from '../context/AuthContext';
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
   const { setAuthUser } = useAuthContext();
 
-
-  const signup = async ({ fullname, username, password, confirmpassword, gender }) => {
-    const success = handleInputErrors({ fullname, username, password, confirmpassword, gender });
+  const signup = async ({
+    fullname,
+    username,
+    password,
+    confirmpassword,
+    gender,
+  }) => {
+    const success = handleInputErrors({
+      fullname,
+      username,
+      password,
+      confirmpassword,
+      gender,
+    });
     if (!success) return;
 
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3005/api/auth/signup", {
+      const res = await fetch(`${process.env.BACKEND_URL}/api/auth/signup`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fullname, username, password, confirmpassword, gender }),
-         credentials: 'include'
+        body: JSON.stringify({
+          fullname,
+          username,
+          password,
+          confirmpassword,
+          gender,
+        }),
+        credentials: "include",
       });
 
       const data = await res.json();
-      console.log(data);
+
       if (data.error) {
-        throw new Error(data.error)
-      };
+        throw new Error(data.error);
+      }
 
       localStorage.setItem("chat-user", JSON.stringify(data));
       setAuthUser(data);
-
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
-    finally {
-      setLoading(false)
-    };
-
-
-  }
-  return { loading, signup }
-
-}
+  };
+  return { loading, signup };
+};
 
 export default useSignup;
 
-function handleInputErrors({ fullname, username, password, confirmpassword, gender }) {
+function handleInputErrors({
+  fullname,
+  username,
+  password,
+  confirmpassword,
+  gender,
+}) {
   if (!fullname || !username || !password || !confirmpassword || !gender) {
     toast.error("Please fill in all the fields");
     return false;
-  };
+  }
   if (password !== confirmpassword) {
     toast.error("Passwords do not match");
     return false;
@@ -63,6 +81,4 @@ function handleInputErrors({ fullname, username, password, confirmpassword, gend
   }
 
   return true;
-
 }
-

@@ -23,13 +23,13 @@ export const signup = async (req, res) => {
         const boyProfilePic = `http://avatar.iran.liara.run/public/boy?username=${username}`;
         const girlProfilePic = `http://avatar.iran.liara.run/public/girl?username=${username}`;
 
-        const newUser = new User({
-            fullname,
-            username,
-            password: hashedPassword,
-            gender,
-            profilepic: gender === "male" ? boyProfilePic : girlProfilePic
-        });
+                const newUser = new User({
+                    fullname,
+                    username,
+                    password: hashedPassword,
+                    gender,
+                    profilepic: gender === "male" ? boyProfilePic : girlProfilePic
+                });
         if (newUser) {
             generateTokenAndSetCookie(newUser._id,res);
 
