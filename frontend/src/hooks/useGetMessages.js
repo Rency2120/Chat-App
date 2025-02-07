@@ -12,8 +12,7 @@ const useGetMessages = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://chat-app-h623.onrender.com
-/api/messages/${selectedConversation._id}`,
+          `https://chat-app-h623.onrender.com/api/messages/${selectedConversation._id}`,
           {
             credentials: "include",
           }

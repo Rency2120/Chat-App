@@ -16,46 +16,39 @@ export const SocketContextProvider = ({ children }) => {
   useEffect(() => {
     if (authUser) {
       try {
-        const socket = io(process.env.BACKEND_URL, {
+        const socketInstance = io("https://chat-app-h623.onrender.com", {
           transports: ["websocket", "polling"],
-          query: {
-            userId: authUser._id,
-          },
+          query: { userId: authUser._id },
         });
 
-        socket.on("connect", () => {
-          console.log("connected to server", socket.id);
+        socketInstance.on("connect", () => {
+          console.log("Connected to server", socketInstance.id);
         });
 
-        setSocket(socket);
+        setSocket(socketInstance);
 
-        // socket.on is used to listen the events and can be used on both client and server side
-        socket.on("getOnlineUsers", (users) => {
+        socketInstance.on("getOnlineUsers", (users) => {
           setOnlineUsers(users);
         });
 
-        socket.on("connect_error", (error) => {
+        socketInstance.on("connect_error", (error) => {
           console.error("Connection error:", error);
         });
 
-        socket.on("disconnect", () => {
-          console.log("disconnected from server", socket.id);
-        });
-
-        socket.on("onlineUsers", (users) => {
-          setOnlineUsers(users);
+        socketInstance.on("disconnect", () => {
+          console.log("Disconnected from server", socketInstance.id);
         });
 
         return () => {
-          console.log("closing socket", socket.id);
-          socket.close();
+          console.log("Closing socket", socketInstance.id);
+          socketInstance.close();
         };
       } catch (error) {
         console.error("Error connecting to Socket.IO server:", error);
       }
     } else {
       if (socket) {
-        console.log("closing socket", socket.id);
+        console.log("Closing socket", socket.id);
         socket.close();
         setSocket(null);
       }

@@ -9,16 +9,13 @@ const useGetConversations = () => {
     const getConversations = async () => {
       setLoading(true);
       try {
-        const res = await fetch(
-          `https://chat-app-h623.onrender.com/api/users`,
-          {
-            method: "GET",
-            credentials: "include",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const res = await fetch(`https://chat-app-h623.onrender.com/api/users`, {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
         if (!res.ok) {
           throw new Error("Network response was not ok");
