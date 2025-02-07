@@ -15,7 +15,7 @@ const getReceiverSocketId = (receiverId) => {
 try {
   io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: "https://chat-app-1-8ibj.onrender.com",
       methods: ["GET", "POST"],
       credentials: "true",
     },
