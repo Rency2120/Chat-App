@@ -10,7 +10,7 @@ import { app, server } from "./socket/Socket.js";
 
 dotenv.config();
 
-const frontendUrl= process.env.NODE_ENV === "production" ? process.env.FRONTEND_URL || "http://localhost:3000"
+const frontendUrl= process.env.NODE_ENV === "production" ? process.env.FRONTEND_URL: "http://localhost:3000" 
 
 app.use(express.json());
 app.use(cors({ origin: frontendUrl, credentials: true }));
