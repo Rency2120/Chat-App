@@ -13,15 +13,19 @@ const useLogin = () => {
 
     setLoading(true);
     try {
-      const res = await fetch(`${process.env.BACKEND_URL}/api/auth/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
+      const res = await fetch(
+        `https://chat-app-h623.onrender.com
+/api/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
 
-        credentials: "include",
-      });
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
 

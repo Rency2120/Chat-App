@@ -25,20 +25,23 @@ const useSignup = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${process.env.BACKEND_URL}/api/auth/signup`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          fullname,
-          username,
-          password,
-          confirmpassword,
-          gender,
-        }),
-        credentials: "include",
-      });
+      const res = await fetch(
+        `https://chat-app-h623.onrender.com/api/auth/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            fullname,
+            username,
+            password,
+            confirmpassword,
+            gender,
+          }),
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
 

@@ -13,7 +13,7 @@ const useSendMessage = () => {
 
       try {
         const response = await fetch(
-          `${process.env.BACKEND_URL}/api/messages/send/${selectedConversation._id}`,
+          `https://chat-app-h623.onrender.com/api/messages/send/${selectedConversation._id}`,
           {
             method: "POST",
             headers: {

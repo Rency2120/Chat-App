@@ -9,14 +9,18 @@ const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     console.log("logged out");
-    console.log("process.env.BACKEND_URL",process.env.BACKEND_URL)
+    console.log("process.env.BACKEND_URL", process.env.BACKEND_URL);
     try {
-      const res = await fetch(`${process.env.BACKEND_URL}/api/auth/logout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `https://chat-app-h623.onrender.com/api/auth/logout`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        }
+      );
 
       const data = await res.json();
 
